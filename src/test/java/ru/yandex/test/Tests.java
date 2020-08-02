@@ -1,26 +1,21 @@
 package ru.yandex.test;
 
-import ru.yandex.page.YandexPage;
-import org.junit.jupiter.api.Assertions;
+import io.qameta.allure.Description;
+import ru.yandex.page.GoogleSearchPage;
 import org.junit.jupiter.api.Test;
+import ru.yandex.service.WebDriverSettings;
 
-public class Tests extends WebDriverSettings{
+import java.util.List;
+import java.util.Map;
 
-    @Test
-    public void hasMoreThanThreeResults(){
-        int results = new YandexPage(driver)
-                .openPage()
-                .findWord("гладиолус")
-                .countResults();
-        Assertions.assertTrue(results > 3, "Amount of search results less than 4");
-    }
+public class Tests extends WebDriverSettings {
 
     @Test
-    public void hasLinkOnWikipedia(){
-        boolean linkIsPresent = new YandexPage(driver)
-                .openPage()
-                .findWord("гладиолус")
-                .findWikiLink();
-        Assertions.assertTrue(linkIsPresent);
+    @Description(value = "Тест поиска гладиолуса")
+    public void test1532919(){
+        GoogleSearchPage googleSearchPage = new GoogleSearchPage(driver, "Гладиолус");
+        List<Map<String,Object>> resultSearch = googleSearchPage.getCollectResults();
+        Steps.checkMoreThanThreeResults(resultSearch,  driver);
+        Steps.checkLinkOnWikipedia(resultSearch,  driver);
     }
 }

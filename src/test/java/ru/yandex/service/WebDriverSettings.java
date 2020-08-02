@@ -1,4 +1,4 @@
-package ru.yandex.test;
+package ru.yandex.service;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
@@ -13,7 +13,9 @@ public class WebDriverSettings {
 
     @BeforeEach
     public void browserSetUp(){
-        WebDriverManager.chromedriver().setup();
+//        WebDriverManager.chromedriver().setup();
+
+//        System.setProperty("webdriver.chrome.driver","C:\\temp\\chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().pageLoadTimeout(40, TimeUnit.SECONDS);
